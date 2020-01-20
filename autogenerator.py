@@ -6,18 +6,19 @@ import json
 
 from jinja2 import Template
 
-def proc(root_path, target_path):
+def proc(root_path, target_path, depth = 0):
 	# Pass
 	if os.path.exists(os.path.join(root_path, 'pass')):
 		return
 
 	# Get base Data
+	data_path = root_path
+	for i in range(0, depth, 1):
+		if not os.path.exists(os.path.join(data_path, 'data.json')):
+			data_path = os.path.dirname(data_path)
+
 	data = {}
-	if os.path.exists(os.path.join(root_path, 'upper')):
-		jsonfile_path = os.path.dirname(root_path)
-		jsonfile_path = os.path.join(jsonfile_path, 'data.json')
-	else:
-		jsonfile_path = os.path.join(root_path, 'data.json')
+	jsonfile_path = os.path.join(data_path, 'data.json')
 	if os.path.exists(jsonfile_path):
 		json_file = open(jsonfile_path, 'r')
 		try:
@@ -81,7 +82,7 @@ def proc(root_path, target_path):
 	sub_directories = [d for d in directories if d.find('sub_') == 0]
 	for subdir in sub_directories :
 		subdir_path = os.path.join(target_path, subdir.replace('sub_', ''))
-		proc(os.path.join(root_path, subdir), subdir_path)
+		proc(os.path.join(root_path, subdir), subdir_path, depth + 1)
 
 
 if __name__ == "__main__" :
