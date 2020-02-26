@@ -92,4 +92,14 @@ if __name__ == "__main__" :
 		print("\tautogenerator <root_path> <target_path>")
 		exit()
 
-	proc(sys.argv[1], sys.argv[2])		
+	proc(sys.argv[1], sys.argv[2])
+
+	# Generate GEN_HISTORY.txt
+	history_file = os.path.join(sys.argv[2], 'GEN_HISTORY.txt')
+	if os.path.exists(history_file):
+		f = open(history_file, "a")
+	else:
+		f = open(history_file, "w+")
+
+	f.write("\nBLUESINK autogenerator v0.0.0\n")
+	f.close()
