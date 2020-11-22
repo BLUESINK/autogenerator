@@ -3,6 +3,7 @@ import sys
 from appl import appl_accumulator
 import shutil
 import json
+import argparse
 
 from jinja2 import Template
 
@@ -86,13 +87,14 @@ def proc(root_path, target_path, depth = 0):
 
 
 if __name__ == "__main__" :
-	if len(sys.argv) != 3 :
-		print("Input argument is invalid")
-		print("Usgae : ")
-		print("\tautogenerator <root_path> <target_path>")
-		exit()
 
-	proc(sys.argv[1], sys.argv[2])
+	parser = argparse.ArgumentParser(description="BLUESINK autogenerator")
+	parser.add_argument('ROOT', type=str, help='Root Folder path')
+	parser.add_argument('TARGET', type=str, help='Target Folder path')
+
+	args = parser.parse_args()
+
+	proc(args.ROOT, args.TARGET)
 
 	# Generate GEN_HISTORY.txt
 	history_file = os.path.join(sys.argv[2], 'GEN_HISTORY.txt')
