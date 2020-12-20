@@ -34,3 +34,4 @@ docs/tests/build/
 docs/utils/regression_test.js
 
 docs/node_modules/
+*.pyc
