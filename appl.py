@@ -11,7 +11,7 @@ def appl_accumulator(target_filepath, base_filepath, signature):
 	# Read target file
 	f_target = open(target_filepath, 'r')
 	while True:
-		line = f_target.readline().replace('\t', '')
+		line = f_target.readline()
 		if not line: break
 
 		tag_check = comment_begin.findall(line)
@@ -19,7 +19,7 @@ def appl_accumulator(target_filepath, base_filepath, signature):
 			tag = tag_check[0].split('/* USER CODE BEGIN ')[1].split(' */')[0]
 			user[tag] = ''
 			while True:
-				line = f_target.readline().replace('\t', '')
+				line = f_target.readline()
 				if not line: break
 				if comment_end.findall(line): break
 
